@@ -27,7 +27,7 @@ for env in __ENVIRONMENTAL_VARIABLES__:
 </tr>
 <?
 req_meth = __get_env__("REQUEST_METHOD")
-?>
+?>>
 <?
 if req_meth == "GET":
     if len(__get__) > 0:
@@ -144,3 +144,4 @@ PyHP is by no means finished, here's what we hope to do:
 - [ ] Write NGINX guide
 - [ ] More customization options
 - [ ] Add support for custom headers from Python (`__header_add__` funtion)
+- [ ] Add more tags such as <?if?> or <?info?>
