@@ -10,14 +10,9 @@ int main() {
 
         log_info("SCRIPT_FILENAME %s", getenv("SCRIPT_FILENAME"));
         read_file(getenv("SCRIPT_FILENAME"));
+//        read_file("/var/www/html/info.pyhp");
+        done();
 
-
-        // Fallback if file is empty
-        if (!return_desired) {
-            log_warn("Fell through with file %s", getenv("SCRIPT_FILENAME"));
-            printf("Content-type: text/plain\r\n\r\n");
-            return_desired = true;
-        }
         return_desired = false;
 
         denitialise();

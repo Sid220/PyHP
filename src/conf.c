@@ -31,6 +31,7 @@ void initialise_config() {
         return;
     }
     if (buffer) {
+        // TODO: Fix invalid read
         conf_json = cJSON_Parse(buffer);
         if (conf_json == NULL) {
             const char *error_ptr = cJSON_GetErrorPtr();

@@ -29,6 +29,66 @@ const char *get_c_version() {
 #endif
 };
 
+
+char *header = NULL;
+
+// TODO: Speed up
+void add_header(char *head) {
+    if (header == NULL) {
+        if ((header = malloc(1)) == NULL) {
+            log_fatal("Unable to allocate memory to header");
+            exit(243);
+        }
+        header[0] = '\0';
+    }
+
+    // +2 for "\0" and "\n"
+    char *header_tmp = realloc(header, strlen(header) + strlen(head) + 2);
+    if (header_tmp == NULL) {
+        log_fatal("Unable to add header");
+        exit(567);
+    }
+    header = header_tmp;
+    strcat(header, head);
+    strcat(header, "\n");
+}
+
+char *content = NULL;
+
+// TODO: Speed up
+void add_content(char *con) {
+    if (content == NULL) {
+        if ((content = malloc(1)) == NULL) {
+            log_fatal("Unable to allocate memory to header");
+            exit(243);
+        }
+        content[0] = '\0';
+    }
+
+    // +1 for "\0"
+    char *content_tmp = realloc(content, strlen(content) + strlen(con) + 1);
+    if (content_tmp == NULL) {
+        log_fatal("Unable to add content");
+        exit(567);
+    }
+    content = content_tmp;
+    strcat(content, con);
+}
+
+void done() {
+    if (header != NULL) {
+        printf("%s\r\n\r\n", header);
+        free(header);
+        header = NULL;
+    }
+    if (content != NULL) {
+        printf("%s", content);
+        free(content);
+        content = NULL;
+    }
+}
+
+
 bool return_desired = false;
 
 void denitialise() {
@@ -78,7 +138,7 @@ void parse_file(FILE *file) {
     bool in_tag = false;
     bool has_read = false;
 
-    printf("Content-type: text/html\r\n\r\n");
+    add_header("Content-type: text/html");
 
     // Read the file character by character
     while ((character = fgetc(file)) != EOF) {
@@ -91,7 +151,7 @@ void parse_file(FILE *file) {
             } else {
                 // Not a tag, print the character
                 if (!return_desired) {
-                    putchar('<');
+                    add_content("<");
                     has_read = true;
                 }
                 ungetc(character, file);
@@ -125,7 +185,9 @@ void parse_file(FILE *file) {
         } else {
             // Not in a tag, print the character
             if (!return_desired) {
-                putchar(character);
+                char character_str[2] = "\0";
+                character_str[0] = character;
+                add_content(character_str);
                 has_read = true;
             }
         }

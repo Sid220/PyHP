@@ -28,7 +28,7 @@ void import_defaults() {
                                                     strlen(environmental_variables) + strlen(list_item) + 2);
         if (environmental_variables_tmp == NULL) {
             return_error("Internal Server Error.", 500);
-            log_fatal("Couldn't make array of environmental variables: realloc fail!");
+            log_error("Couldn't make array of environmental variables: realloc fail!");
         }
         environmental_variables = environmental_variables_tmp;
 
@@ -150,14 +150,21 @@ void run_py_code(char *code) {
     PyObject *main_module = PyImport_AddModule("__main__");
     PyObject *pyhp_stdout = PyObject_GetAttrString(main_module, "__PYHP_STDOUT__");
     const char *pyhp_stdout_value = PyUnicode_AsUTF8(pyhp_stdout);
-    printf("%s", pyhp_stdout_value);
+    add_content(pyhp_stdout_value);
 
     PyObject *pyhp_stderr = PyObject_GetAttrString(main_module, "__PYHP_STDERR__");
     const char *pyhp_stderr_value = PyUnicode_AsUTF8(pyhp_stderr);
 
     if (*pyhp_stderr_value != '\0') {
         if (CONF_DEBUG) {
-            printf("<span style='color: red'>%s</span>", pyhp_stderr_value);
+            char *err_container = malloc(strlen(pyhp_stderr_value) + 50);
+            if(err_container == NULL) {
+                log_error("Unable to log error");
+                return_error("Internal Server Error.", 500);
+            }
+            sprintf(err_container, "<span style='color: red'>%s</span>", pyhp_stderr_value);
+            add_content(err_container);
+            free(err_container);
         } else {
             return_error("Internal Server Error.", 500);
         }

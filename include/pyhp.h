@@ -13,6 +13,12 @@ const char *get_c_version();
 
 extern bool return_desired;
 
+void add_header(char *head);
+
+void add_content(char *con);
+
+void done();
+
 void initialise(void);
 
 void denitialise(void);

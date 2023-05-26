@@ -6,5 +6,6 @@
 int main() {
     initialise();
     read_file("/var/www/html/info.pyhp");
+    done();
     denitialise();
 }

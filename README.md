@@ -103,4 +103,65 @@ Run this through PyHP, whether the CLI or socket, and you'll get something that 
 Cool, huh?
 
 ## Installation
-Currently, no binaries are available to download.
+Currently, no binaries are available to download, so you must build from source.
+
+#### Install required libraries
+```shell
+sudo apt install libpython3.10 libpython3.10-dev
+```
+#### Download
+```shell
+git clone https://github.com/Sid220/PyHP.git
+```
+#### Build
+```shell
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/path/to/ninja -G Ninja -S /path/to/git_clone -B /path/to/where/you/want/build
+```
+#### Run (optional)
+```shell
+/path/to/where/you/want/build/PyHP
+```
+#### Configure with NGINX
+First start the socket:
+```shell
+chmod +x /path/to/git_clone/start.sh
+/path/to/git_clone/start.sh
+```
+Then configure with NGINX. Here is some example configuration to get you started:
+```nginx
+server
+{
+	root /var/www/html;
+	listen 8010 default_server;
+	listen [::]:8010 default_server;
+	server_name _;
+	location /
+	{
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+
+	location ~ \.pyhp$
+	{
+		fastcgi_pass unix:/tmp/phyp-fcgi.sock;
+		include fastcgi_params;
+		fastcgi_param REQUEST_URI $uri;
+		fastcgi_param SCRIPT_FILENAME $request_filename;
+		fastcgi_param REQUEST_BODY $request_body;
+	}
+}
+```
+Now open up [http://localhost:8010/yourfile.pyhp](http://localhost:8010/yourfile.pyhp) to see some magic!
+## ToDo
+PyHP is by no means finished, here's what we hope to do:
+
+- [ ] Speed up add_content and add_header methods, or find a better way to output
+- [ ] Take other files through CLI
+- [ ] Improve/create indentation fixer to remove extra indentation in files
+- [ ] Add support for HTTP files
+- [ ] Write Python documentation
+- [ ] Write documentation for FastCGI and CLI
+- [ ] Write NGINX guide
+- [ ] More customization options
+- [ ] Add support for custom headers from Python (`__header_add__` funtion)
