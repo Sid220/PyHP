@@ -144,4 +144,4 @@ PyHP is by no means finished, here's what we hope to do:
 - [ ] Write NGINX guide
 - [ ] More customization options
 - [ ] Add support for custom headers from Python (`__header_add__` funtion)
-- [ ] Add more tags such as <?if?> or <?info?>
+- [ ] Add more tags such as `<?if?>` or `<?info?>`
