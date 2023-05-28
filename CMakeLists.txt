@@ -26,7 +26,8 @@ add_executable(pyhp-cgi-start src/start-socket.c src/cJSON.c src/conf.c src/log.
 #        DESTINATION "/home/"
 #        )
 install(TARGETS pyhp pyhp-cgi pyhp-cgi-start RUNTIME DESTINATION bin)
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/assets/" DESTINATION "/")
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/assets/root" DESTINATION "/")
+set(CPACK_POST_INSTALL_SCRIPT_FILE "${PROJECT_SOURCE_DIR}/assets/postinstall.sh")
 set(CPACK_GENERATOR "DEB;RPM")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Sidney Trzepacz") #required
 set(CPACK_DEBIAN_PACKAGE_DEPENDS libpython3.10)
