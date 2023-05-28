@@ -27,7 +27,7 @@ for env in __ENVIRONMENTAL_VARIABLES__:
 </tr>
 <?
 req_meth = __get_env__("REQUEST_METHOD")
-?>>
+?>
 <?
 if req_meth == "GET":
     if len(__get__) > 0:
