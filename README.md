@@ -17,16 +17,7 @@ for i in __pyhp_info__.keys():
 ?>
 <tr>
   <td colspan="3" class="pyhp-h2">Environmental Variables</td>
-</tr>install(TARGETS addnumapp
-    COMPONENT linapp
-    RUNTIME DESTINATION "/home/"
-    LIBRARY DESTINATION "/home/"
-    DESTINATION "/home/"
-)
-
-SET(CPACK_GENERATOR "DEB")
-SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "KK") #required
-INCLUDE(CPack)
+</tr>
 <?
 for env in __ENVIRONMENTAL_VARIABLES__:
     print("<tr><td class='pyhp-name'>" + env.partition("=")[0] + "</td><td colspan='2'>" + env.partition("=")[2] + "</td></tr>")
