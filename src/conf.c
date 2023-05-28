@@ -14,7 +14,7 @@ cJSON *conf_json;
 void initialise_config() {
     char *buffer = 0;
     long length;
-    FILE *f = fopen(CONF_FILE, "rb");
+    FILE *f = fopen(CONF_FILE, "r");
     if (f) {
         fseek(f, 0, SEEK_END);
         length = ftell(f);

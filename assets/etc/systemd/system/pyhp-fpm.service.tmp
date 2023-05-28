@@ -1,0 +1,10 @@
+[Unit]
+Description=The PyHP FastCGI Process Manager
+After=network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/pyhp-cgi-start
+
+[Install]
+WantedBy=multi-user.target
