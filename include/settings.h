@@ -7,7 +7,7 @@
 
 #include "conf.h"
 
-#define PYHP_VERSION "1.0.2"
+#define PYHP_VERSION "1.0.3"
 
 #define MAX_LINE_LENGTH 1024
 
