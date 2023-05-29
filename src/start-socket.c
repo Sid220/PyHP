@@ -40,7 +40,7 @@ void do_chown(const char *file_path,
     gid = grp->gr_gid;
 
     if (chown(file_path, uid, gid) == -1) {
-        fprintf(stderr, "chown fail");
+        fprintf(stderr, "chown fail; Is your server user (%s) and group (%s) correct?", CONF_SERVER_USER, CONF_SERVER_GROUP);
         exit(4);
     }
 }

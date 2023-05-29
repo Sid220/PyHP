@@ -30,6 +30,7 @@ install(DIRECTORY "${PROJECT_SOURCE_DIR}/assets/root/" DESTINATION "/")
 set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${PROJECT_SOURCE_DIR}/assets/postinst")
 set(CPACK_GENERATOR "DEB;RPM")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Sidney Trzepacz") #required
-set(CPACK_DEBIAN_PACKAGE_DEPENDS libpython3.10)
+set(CPACK_DEBIAN_PACKAGE_DEPENDS libpython3.10 libfcgi libfcgi-bin)
+set(CPACK_RPM_PACKAGE_REQUIRES libpython3.10 libfcgi libfcgi-bin)
 include(CPack)
 
