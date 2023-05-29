@@ -5,6 +5,10 @@ find_package(Python 3.10 COMPONENTS Interpreter Development REQUIRED)
 
 set(CMAKE_C_STANDARD 11)
 
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 2)
+
 add_executable(pyhp src/main.c src/pyhp.c src/runner.c include/settings.h src/log.c include/main.h src/cJSON.c src/conf.c)
 target_compile_definitions(pyhp PUBLIC IS_FAST_CGI="0")
 target_link_libraries(pyhp PRIVATE ${Python_LIBRARIES})
@@ -30,7 +34,7 @@ install(DIRECTORY "${PROJECT_SOURCE_DIR}/assets/root/" DESTINATION "/")
 set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${PROJECT_SOURCE_DIR}/assets/postinst")
 set(CPACK_GENERATOR "DEB;RPM")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Sidney Trzepacz") #required
-set(CPACK_DEBIAN_PACKAGE_DEPENDS libpython3.10 libfcgi libfcgi-bin)
-set(CPACK_RPM_PACKAGE_REQUIRES libpython3.10 libfcgi libfcgi-bin)
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libpython3.10 libfcgi libfcgi-bin")
+set(CPACK_RPM_PACKAGE_REQUIRES "libpython3.10 libfcgi libfcgi-bin")
 include(CPack)
 
